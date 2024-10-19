@@ -1,27 +1,30 @@
-use std::collections::HashMap;
 use std::env;
+use phf::phf_map;
+
+
+static OUI_DATA: phf::Map<&'static str, &'static str> = phf_map! {
+    // ***insert_point***
+    "286FB9" => "Nokia Shanghai Bell Co., Ltd.",
+    // ***insert_point***
+};
+
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    //***insert_point***
-    const oui_data:HashMap<u32, &'static str> = HashMap::from(
-        [(1, "hello")]
-    );
-    //***insert_point***
     for mac in args.iter().skip(1) {
-        let mut mac_digit: u32 = 0;
+        let mut mac_alpha = String::new();
         let mut add_times: u32 = 0;
         for c in mac.chars() {
             if c.is_alphanumeric() {
-                mac_digit = mac_digit * 16 + c.to_digit(16).unwrap_or(0);
+                mac_alpha.push(c.to_ascii_uppercase());
                 add_times += 1;
                 if add_times >= 6 {
                     break;
                 }
             }
         }
-        if oui_data.contains_key(&mac_digit) {
-            println!("{} {}", mac, oui_data.get(&mac_digit).unwrap());
+        if OUI_DATA.contains_key(&mac_alpha) {
+            println!("{} {}", mac, OUI_DATA.get(&mac_alpha).unwrap());
         } else {
             println!("{} unknown", mac);
         }
