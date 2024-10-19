@@ -18,7 +18,9 @@ Rust used the phf library and easily applied.
 
 ## Usage
 
-Run `python main.py rust` or `python main.py cpp`, it will download [oui.txt](http://standards-oui.ieee.org/oui/oui.txt) and translate the code, output them to `output/` folder. Rust needs this dependency:
+Run `python main.py rust` or `python main.py cpp`, it will download [oui.txt](http://standards-oui.ieee.org/oui/oui.txt) and translate the code, output them to `output/` folder. The program will read the arguments given to program, and output the factory name. If it can't find, it will output `unknown`. 
+
+Rust needs this dependency:
 
 ```toml
 [dependencies]

@@ -19,7 +19,9 @@ Rust采用的是现成的phf库，很快就实现了。
 
 ## 用法 
 
-运行 `python main.py rust` 或 `python main.py cpp`后， 该文件会下载[oui.txt](http://standards-oui.ieee.org/oui/oui.txt) 并转换代码，在`output/`文件夹可找到对应代码，即可编译并运行。其中Rust需要添加如下依赖。
+运行 `python main.py rust` 或 `python main.py cpp`后， 该文件会下载[oui.txt](http://standards-oui.ieee.org/oui/oui.txt) 并转换代码，在`output/`文件夹可找到对应代码，即可编译并运行。程序会识别传递的命令行参数，输出对应厂家名称，如果没有则输出`unknown`。
+
+其中Rust需要添加如下依赖。
 
 ```toml
 [dependencies]
