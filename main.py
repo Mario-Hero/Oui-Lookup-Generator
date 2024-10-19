@@ -15,14 +15,16 @@ OUI_TXT_PATH = './oui.txt'
 OUTPUT_FOLDER = 'output/'
 
 def download_oui():
-    print('downloading')
+    print('Downloading...')
     response = requests.get(IEEE_URL)
     if response.status_code == 200:
-        print('writing')
+        print('Writing...')
         with open(OUI_TXT_PATH, 'wb') as oui:
             oui.write(response.content)
+        return 0
     else:
-        print('download failed')
+        print('Download http://standards-oui.ieee.org/oui/oui.txt failed')
+        return -1
 
 
 if __name__ == '__main__':
@@ -30,9 +32,12 @@ if __name__ == '__main__':
         print("Please provide the language you need to generate,")
         print("support: cpp, rust")
         sys.exit(1)
+
     language = sys.argv[1].strip().lower()
     if not os.path.exists(OUI_TXT_PATH):
-        download_oui()
+        if download_oui() != 0:
+            sys.exit(1)
+
     oui_data = dict()
     with open(OUI_TXT_PATH, 'r') as f:
         f.readline()
@@ -72,6 +77,9 @@ if __name__ == '__main__':
         output_folder_2 = 'rust/'
         for mac, compony in oui_data.items():
             insert_code += f'    \"{mac}\" => \"{compony}\",\n'
+    else:
+        print('Not supported programming language')
+        sys.exit(1)
     if not os.path.exists(OUTPUT_FOLDER):
         os.mkdir(OUTPUT_FOLDER)
     if not os.path.exists(OUTPUT_FOLDER + output_folder_2):
@@ -91,3 +99,4 @@ if __name__ == '__main__':
                 else:
                     output.write(line)
                 line = template.readline()
+    print('Success!')
