@@ -66,7 +66,7 @@ if __name__ == '__main__':
         template_file = 'template.cpp'
         output_file = 'output.cpp'
         output_folder_2 = 'cpp/'
-        for mac, compony in oui_data.items():
+        for mac, compony in sorted(oui_data.items()):
             mac_digit = int(mac, 16)
             insert_code += f'		case {mac_digit}: return \"{compony}\";\n'
         # insert_code = insert_code[:-2]
@@ -75,7 +75,7 @@ if __name__ == '__main__':
         template_file = 'template.rs'
         output_file = 'output.rs'
         output_folder_2 = 'rust/'
-        for mac, compony in oui_data.items():
+        for mac, compony in sorted(oui_data.items()):
             insert_code += f'    \"{mac}\" => \"{compony}\",\n'
     else:
         print('Not supported programming language')
